@@ -1,19 +1,25 @@
-document.addEventListener("keypress", function(e) {
-  if (e.keyCode === 13) {
-    toggleFullScreen();
-  }
-}, false);
+const buttons = Array.prototype.slice.call(document.querySelectorAll('.btn'));
+buttons.forEach(element => {
 
-function toggleFullScreen() {
-  if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen(); 
-    }
-  }
+  element.addEventListener('mousedown', (el) => postData({
+    'target': el.target.id,
+    'status': true
+  }));
+  element.addEventListener('mouseup', (el) => postData({
+    'target': el.target.id,
+    'status': false
+  }));
+});
+
+function postData(data) {
+  fetch(window.location.href + 'motors', {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify(data)
+  })
 }
-
-document.onload = document.documentElement.requestFullscreen();
-
-document.onload = confirm("A")
