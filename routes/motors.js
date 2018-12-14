@@ -4,11 +4,11 @@ const express = require('express'),
 let gpio;
 const pins = [5, 6, 7, 8]; // l-fwd, r-fwd, l-bwd, r-bwd
 
-if(process.env.PI) {
+//if(process.env.PI) {
   gpio = require('rpi-gpio');
-  
+  console.log('gpio active');
   pins.forEach(pin => gpio.setup(pin, gpio.DIR_OUT));
-}
+//}
 
 
 router.post('/', function(req, res, next) {
