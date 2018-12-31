@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "PI=TRUE node ./bin/www"
+    "start": "PI=TRUE node ./bin/www",
+    "dev": "node ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -12,5 +13,8 @@
     "morgan": "~1.9.0",
     "rpi-gpio": "^2.1.2",
     "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
   }
 }

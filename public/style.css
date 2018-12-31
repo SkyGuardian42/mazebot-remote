@@ -7,6 +7,33 @@ body {
   background: #000;
 }
 
+#app {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1.6fr 1fr;
+  grid-template-columns: 1.6fr 1fr;
+  padding: 1px;
+  grid-gap: 1px;
+}
+
+#app > div {
+  background: #fff;
+}
+
+.sensors {
+  grid-row-end: span 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.camera {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -14,7 +41,8 @@ body {
   height: 100%;
   width: 100%;
   grid-gap: 1px;
-  padding: 1px;
+
+  background: #000!important;
 }
 
 .btn {
