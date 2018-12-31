@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "PI=TRUE node ./bin/www",
-    "dev": "node ./bin/www"
+    "dev": "node ./app.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

@@ -1,25 +1,36 @@
-const express       = require('express'),
-      path          = require('path')
-      cookieParser  = require('cookie-parser')
-      logger        = require('morgan'),
-      app           = express()
+// Setup basic express server
+var express = require('express');
+var app = express();
+var path = require('path');
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+var port =  3000;
 
-const routers = {
-  index:  require('./routes/index'),
-  motors: require('./routes/motors')
-}
+server.listen(port, () => {
+  console.log('Server listening at port %d', port);
+});
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+// Routing
 app.use(express.static(path.join(__dirname, 'public')));
 
+io.on('connection', (socket) => {
+  console.log('client connected')
+  
+  // when the client emits 'new message', this listens and executes
+  socket.on('new message', (data) => {
+    // we tell the client to execute 'new message'
+    socket.broadcast.emit('new message', {
+      username: socket.username,
+      message: data
+    });
+  });
 
-app.use('/', routers.index);
-app.use('/motors', routers.motors);
+  // when the client emits 'add user', this listens and executes
+  socket.on('motor', (data) => {
+    console.log(data)
+  });
+});
 
-
-
-
-module.exports = app;
+setInterval(() => {
+  io.emit('sensor', { sensor: new Date().getTime() })
+}, 10)

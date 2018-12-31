@@ -1,6 +1,7 @@
 /* global fetch */
 
-const socket = io();
+/* global io */
+const socket = io()
 
 const buttons = Array.prototype.slice.call(document.querySelectorAll('.btn'))
 
@@ -14,6 +15,12 @@ buttons.forEach(element => {
     'target': el.target.id,
     'status': false
   }))
+})
+
+socket.emit('motor', { demo: 'test' })
+
+socket.on('sensor', (data) => {
+  document.querySelector('.sensors').innerHTML = JSON.stringify(data)
 })
 
 function postData (data) {
