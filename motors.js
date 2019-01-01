@@ -1,18 +1,23 @@
-let gpio = {};
-let pins = [];
+const gpio = require('rpi-gpio');
 
 if (process.env.PI) {
-  // eslint-disable-next-line global-require
-  gpio = require('rpi-gpio');
-
   console.log('gpio active');
-  pins.forEach(pin => gpio.setup(pin, gpio.DIR_OUT));
-} else {
-  gpio.write = () => { };
 }
 
-module.exports.set = Pins => pins = Pins;
+module.exports = (Pins) => {
+  gpio.motorPins = Pins;
+  gpio.motorPins.forEach(pin => gpio.setup(pin, gpio.DIR_OUT));
 
-module.exports.write = (data) => {
-  gpio.write(pins[data.target], data.status);
+  this.write = (data) => {
+    try {
+      gpio.write(gpio.motorPins[data.target], data.status);
+    } catch (e) {
+      // only throw error when run on pi to avoid false-positives
+      if (process.env.PI !== undefined) {
+        console.log(process.env.PI);
+      }
+    }
+  };
+
+  return this;
 };

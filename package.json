@@ -3,15 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "PI=TRUE node ./bin/www",
+    "start": "PI=TRUE node ./app.js",
     "dev": "node ./app.js"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
-    "morgan": "~1.9.0",
     "rpi-gpio": "^2.1.2",
+    "serialport": "^7.1.1",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {

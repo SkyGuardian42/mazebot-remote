@@ -5,10 +5,10 @@ const path = require('path');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const motors = require('./motors.js');
+const motors = require('./motors.js')([29, 32, 31, 33]);
 
-// Set pins which the motorcontroller is connected to
-motors.set([29, 32, 31, 33]);
+require('./serial')(io);
+
 const port = 3000;
 
 server.listen(port, () => {
