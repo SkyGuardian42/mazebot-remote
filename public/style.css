@@ -41,7 +41,7 @@ body {
   height: 100%;
   width: 100%;
   grid-gap: 1px;
-
+  user-select: none;
   background: #000!important;
 }
 

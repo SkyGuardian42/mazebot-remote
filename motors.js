@@ -1,19 +1,18 @@
-const express = require('express')
-const router = express.Router()
-
-let gpio
-const pins = [29, 32, 31, 33] // l-fwd, r-fwd, l-bwd, r-bwd
+let gpio = {};
+let pins = [];
 
 if (process.env.PI) {
-  gpio = require('rpi-gpio')
-  console.log('gpio active')
-  pins.forEach(pin => gpio.setup(pin, gpio.DIR_OUT))
+  // eslint-disable-next-line global-require
+  gpio = require('rpi-gpio');
+
+  console.log('gpio active');
+  pins.forEach(pin => gpio.setup(pin, gpio.DIR_OUT));
+} else {
+  gpio.write = () => { };
 }
 
-router.post('/', function (req, res, next) {
-  gpio.write(pins[req.body.target], req.body.status)
-  console.log(req.body)
-  res.send('ok')
-})
+module.exports.set = Pins => pins = Pins;
 
-module.exports = router
+module.exports.write = (data) => {
+  gpio.write(pins[data.target], data.status);
+};
