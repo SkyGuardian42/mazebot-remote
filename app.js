@@ -1,20 +1,31 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+// Setup basic express server
+const express = require('express');
+const path = require('path');
 
-var indexRouter = require('./routes/index');
-var motorsRouter = require('./routes/motors');
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const motors = require('./motors.js')([29, 32, 31, 33]);
 
-var app = express();
+require('./serial')(io);
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+const port = 3000;
+
+server.listen(port, () => {
+  console.log(`Server listening at port ${port}`);
+});
+
+// Routing
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/motors', motorsRouter);
+io.on('connection', (socket) => {
+  console.log('client connected');
 
-module.exports = app;
+  socket.on('motor', (data) => {
+    motors.write(data);
+  });
+});
+
+// setInterval(() => {
+//   io.emit('sensor', { sensor: new Date().getTime()});
+// }, 10);

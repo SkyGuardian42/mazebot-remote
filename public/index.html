@@ -6,15 +6,26 @@
 </head>
 
 <body>
-  <div class="buttons">
-    <!-- l-fwd, r-fwd, l-bwd, r-bwd -->
-    <div class="btn" id="0">⬆️</div>
-    <div class="btn" id="1">⬆️</div>
-    <div class="btn" id="2">⬇️</div>
-    <div class="btn" id="3">⬇️</div>
+  <div id="app">
+      <div class="camera">
+        camera
+      </div>
+
+      <div class="sensors">
+        sensors
+      </div>
+      
+      <div class="buttons">
+        <!-- l-fwd, r-fwd, l-bwd, r-bwd -->
+        <div class="btn" id="0">⬆️</div>
+        <div class="btn" id="1">⬆️</div>
+        <div class="btn" id="2">⬇️</div>
+        <div class="btn" id="3">⬇️</div>
+      </div>    
   </div>
 </body>
 
+<script src="/socket.io/socket.io.js"></script>
 <script src="/script.js"></script>
 
 </html>
