@@ -1,5 +1,6 @@
 # Mazebot Webinterface
 > Fernsteuerung des Mazebot durch ein Webinterface
+
 | cmnd  | id  |
 | ----- | --- |
 | l-fwd | 29  |
