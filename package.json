@@ -9,13 +9,7 @@
   "dependencies": {
     "debug": "~2.6.9",
     "express": "~4.16.0",
-    "rpi-gpio": "^2.1.2",
-    "serialport": "^7.1.1",
+    "serialport": "^7.1.4",
     "socket.io": "^2.2.0"
-  },
-  "devDependencies": {
-    "eslint": "^5.11.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0"
   }
 }

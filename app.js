@@ -1,23 +1,26 @@
-// Setup basic express server
-const express = require('express');
-const path = require('path');
+#!/usr/bin/env node
 
-const app = express();
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
-const motors = require('./motors.js')([29, 32, 31, 33]);
+// Library imports 
+const express  = require('express'),
+      socketio = require('socket.io');
 
-require('./serial')(io);
+// Global variables
+const app    = express(),
+      server = require('http').createServer(app),
+      io     = socketio(server),
+      motors = require('./motors.js')([33, 32, 31, 29]),
+			port   = 8080,
+			serial = require('./serial')(io);
 
-const port = 3000;
-
+// Listen ro requests
 server.listen(port, () => {
   console.log(`Server listening at port ${port}`);
 });
 
-// Routing
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve HTML-files
+app.use('./public');
 
+// Handle WebSocket connections
 io.on('connection', (socket) => {
   console.log('client connected');
 
@@ -25,7 +28,3 @@ io.on('connection', (socket) => {
     motors.write(data);
   });
 });
-
-// setInterval(() => {
-//   io.emit('sensor', { sensor: new Date().getTime()});
-// }, 10);

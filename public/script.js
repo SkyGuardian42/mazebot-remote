@@ -17,6 +17,73 @@ buttons.forEach((element) => {
   }));
 });
 
+document.addEventListener('keydown', function(event){
+  //console.log(event);
+  switch(event.code) {
+	  case 'ArrowUp': 
+	 	  postData({
+        target: 0,
+        status: true,
+      });
+
+	 	  postData({
+        target: 1,
+        status: true,
+      });
+
+			console.log('up');
+			break;
+		case 'ArrowDown':
+
+	 	  postData({
+        target: 2,
+        status: true,
+      });
+
+	 	  postData({
+        target: 3,
+        status: true,
+      });
+
+      console.log('down');
+		  break;
+	}
+});
+
+
+document.addEventListener('keyup', function(event){	
+  switch(event.code) {
+	  case 'ArrowUp': 
+	 	  postData({
+        target: 0,
+        status: false,
+      });
+
+	 	  postData({
+        target: 1,
+        status: false,
+      });
+			
+		 	console.log('up');
+			
+			break;
+		case 'ArrowDown':	
+      console.log('down');
+		 
+	 	  postData({
+        target: 2,
+        status: false,
+      });
+
+	 	  postData({
+        target: 3,
+        status: false,
+      });
+
+			console.log('down');
+			break;
+	}
+})
 socket.on('sensor', (data) => {
   document.querySelector('.sensors').innerHTML = JSON.stringify(data);
 });

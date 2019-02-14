@@ -9,6 +9,9 @@ module.exports = (Pins) => {
   gpio.motorPins.forEach(pin => gpio.setup(pin, gpio.DIR_OUT));
 
   this.write = (data) => {
+    console.log('writing: ');
+    console.log(data);
+
     try {
       gpio.write(gpio.motorPins[data.target], data.status);
     } catch (e) {
