@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 // Library imports 
 const express  = require('express'),
       socketio = require('socket.io');
@@ -8,8 +6,8 @@ const express  = require('express'),
 const app    = express(),
       server = require('http').createServer(app),
       io     = socketio(server),
-      motors = require('./motors.js')([33, 32, 31, 29]),
-			port   = 8080,
+      motors = require('./motors.js')([11, 13, 15, 16]),
+			port   = 3000,
 			serial = require('./serial')(io);
 
 // Listen ro requests
@@ -18,7 +16,7 @@ server.listen(port, () => {
 });
 
 // Serve HTML-files
-app.use('./public');
+app.use(express.static('./public'));
 
 // Handle WebSocket connections
 io.on('connection', (socket) => {

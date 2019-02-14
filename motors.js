@@ -6,7 +6,7 @@
 const rpio = require('rpio');
 
 // Global variables
-let pins = [];
+//let pins = [];
 
 // If not used on Pi, enable mock environment
 if (process.env.PI) {
@@ -14,13 +14,14 @@ if (process.env.PI) {
 } else {  
   console.log('GPIO running in mock environment');
 
-  rpio.init({
-    rpio.init({mock: 'raspi-3'});
-  });
+  rpio.init({mock: 'raspi-3'});
 }
 
 module.exports = (pins) => {
-  pins = this.pins;
+  console.log(pins)
+  //this.pins = pins;
+  //console.log(this.pins);
+  //pins = this.pins;
 
   // Initialize Pins
   pins.forEach(pin => rpio.open(pin, rpio.OUTPUT, rpio.LOW));
