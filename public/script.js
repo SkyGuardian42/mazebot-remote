@@ -1,6 +1,3 @@
-/* global fetch */
-
-/* global io */
 const socket = io();
 
 const buttons = Array.prototype.slice.call(document.querySelectorAll('.btn'));
@@ -8,12 +5,12 @@ const buttons = Array.prototype.slice.call(document.querySelectorAll('.btn'));
 buttons.forEach((element) => {
   element.addEventListener('mousedown', el => postData({
     target: Number(el.target.id),
-    status: true,
+    status: 1,
   }));
 
   element.addEventListener('mouseup', el => postData({
     target: Number(el.target.id),
-    status: false,
+    status: 0,
   }));
 });
 
@@ -23,12 +20,12 @@ document.addEventListener('keydown', function(event){
 	  case 'ArrowUp': 
 	 	  postData({
         target: 0,
-        status: true,
+        status: 1,
       });
 
 	 	  postData({
         target: 1,
-        status: true,
+        status: 1,
       });
 
 			console.log('up');
@@ -37,12 +34,12 @@ document.addEventListener('keydown', function(event){
 
 	 	  postData({
         target: 2,
-        status: true,
+        status: 1,
       });
 
 	 	  postData({
         target: 3,
-        status: true,
+        status: 1,
       });
 
       console.log('down');
@@ -56,12 +53,12 @@ document.addEventListener('keyup', function(event){
 	  case 'ArrowUp': 
 	 	  postData({
         target: 0,
-        status: false,
+        status: 0,
       });
 
 	 	  postData({
         target: 1,
-        status: false,
+        status: 0,
       });
 			
 		 	console.log('up');
@@ -72,35 +69,23 @@ document.addEventListener('keyup', function(event){
 		 
 	 	  postData({
         target: 2,
-        status: false,
+        status: 0,
       });
 
 	 	  postData({
         target: 3,
-        status: false,
+        status: 0,
       });
 
 			console.log('down');
 			break;
 	}
 })
+
 socket.on('sensor', (data) => {
   document.querySelector('.sensors').innerHTML = JSON.stringify(data);
 });
 
 function postData(data) {
-  /* Fetch data from server
-  fetch(`${window.location.href}motors`, {
-    method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-    },
-    body: JSON.stringify(data),
-  });
-  */
-
   socket.emit('motor', data);
 }

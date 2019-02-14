@@ -1,26 +1,38 @@
-const gpio = require('rpi-gpio');
+//---------------------------------
+// Handle GPIO to motor controller
+//---------------------------------
 
+// Library imports
+const rpio = require('rpio');
+
+// Global variables
+let pins = [];
+
+// If not used on Pi, enable mock environment
 if (process.env.PI) {
-  console.log('gpio active');
+  console.log('Enabling GPIO');
+} else {  
+  console.log('GPIO running in mock environment');
+
+  rpio.init({
+    rpio.init({mock: 'raspi-3'});
+  });
 }
 
-module.exports = (Pins) => {
-  gpio.motorPins = Pins;
-  gpio.motorPins.forEach(pin => gpio.setup(pin, gpio.DIR_OUT));
+module.exports = (pins) => {
+  pins = this.pins;
+
+  // Initialize Pins
+  pins.forEach(pin => rpio.open(pin, rpio.OUTPUT, rpio.LOW));
 
   this.write = (data) => {
+    // Log GPIO change to console
     console.log('writing: ');
     console.log(data);
-
-    try {
-      gpio.write(gpio.motorPins[data.target], data.status);
-    } catch (e) {
-      // only throw error when run on pi to avoid false-positives
-      if (process.env.PI !== undefined) {
-        console.log(process.env.PI);
-      }
-    }
-  };
-
+    
+    // Write to GPIO
+    rpio.write(pins[data.target], data.status);
+  }
+  
   return this;
-};
+}
